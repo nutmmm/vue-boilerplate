@@ -1,8 +1,7 @@
 <template>
-	<div>
-		<h2>Channels:</h2>
-		<ul>
-			<li v-for="channel in channels" :key="channel._id" @click="changeChannel(channel)">
+	<div class="channelListContainer">
+		<ul class="channelList">
+			<li v-for="channel in channels" :key="channel._id" @click="changeChannel(channel)" class="channel">
 				{{ channel.name }}
 			</li>
 		</ul>
@@ -26,5 +25,33 @@
 </script>
 
 <style>
+	.channelList{
+		display: flex;
+		flex-direction: column;
+		padding: 0px;
+		margin: 0px;
+		height:100%;
+	}
 
+	.channelListContainer{
+		height:100%;
+    	width: 115px;
+	}
+
+	.channel{
+		border: 1px solid black;
+		border-radius: 100px;
+		/*padding-top: 30px;
+		padding-bottom: 30px;*/
+		padding-left: auto;
+		padding-right: auto;
+		width: 100px;
+		height: 100px;
+		margin: 5px;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+	}
 </style>

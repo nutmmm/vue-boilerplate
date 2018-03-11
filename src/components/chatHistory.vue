@@ -1,9 +1,8 @@
 <template>
-	<div>
-		<h2>Messages:</h2>
+	<div class="messageContainer">
 		<ul>
-			<li v-for="message in messages" :key="message._id">
-				{{ message.user.nick }}: {{ message.text }}
+			<li v-for="message in messages" :key="message._id" class="message">
+				{{Date.parse(message.createdAt).getDay()}}{{ message.user.nick }}: {{ message.text }}
 			</li>
 		</ul>
 	</div>
@@ -20,5 +19,13 @@ export default {
 </script>
 
 <style>
+	.messageContainer{
+		border: 1px solid black;
+		height:80%;
+		overflow-y: scroll;
+	}
 
+	.message{
+		display: block;
+	}
 </style>

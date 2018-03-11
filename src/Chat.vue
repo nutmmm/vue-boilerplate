@@ -1,9 +1,10 @@
 <template>
-	<div>
-		Chat
+	<div class="chatContainer">
 		<channels :channels="channels" :current="currentChannel" @selectChannel="onSelectChannel"></channels>
-		<chatHistory :messages="messages"></chatHistory>
-		<chat @sendMessage="sendMessage"></chat>
+		<div class="right">
+			<chatHistory :messages="messages"></chatHistory>
+			<chat @sendMessage="sendMessage"></chat>
+		</div>
 	</div>
 </template>
 
@@ -74,5 +75,16 @@
 </script>
 
 <style>
-
+	.chatContainer{
+		display: flex;
+  		flex-wrap: wrap;
+		padding: 0px;
+		margin: 0px;
+		width: 100%;
+		height: 100%;
+	}
+	.right{
+		height: 100%;
+    	width: calc(100% - 120px);
+	}
 </style>

@@ -69,15 +69,15 @@
 	height: 100%;
 }
 
-h2{
+form > h2{
 	text-align: center;
 }
 
-input{
+form > input{
 	width: 100%;
 }
 
-button{
+.buttonContainer > button{
 	margin-left: auto;
 	margin-right: auto;
 	height: 30px;
