@@ -40,7 +40,6 @@ const service = {
   },
 
 sendMessage(channel, user, text) {
-	console.log("CREATED MESSAGE: channel: " + channel + " user: " + user + " text: " + text)
 	return client.service("messages").create({ channel, user, text }).catch(err => {
 		console.log()
 	})

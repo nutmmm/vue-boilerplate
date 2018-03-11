@@ -55,12 +55,10 @@
 
 			// Setup events
 			client.service("messages").on("created", message => {
-				console.log("MESSAGE")
 				this.addMessage(message)
 			})
 
 			client.service("channels").on("patched", channel => {
-				console.log("CHANNEL")
 				this.updateChannel(channel)
 			})
 

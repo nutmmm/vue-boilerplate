@@ -41,7 +41,6 @@ export const actions = {
   },
 
   updateChannel({ commit, state }, channel) {
-	  console.log("UPDATING!!!")
     commit("updateChannel", channel)
 
     if (channel._id === state.currentChannelId) {

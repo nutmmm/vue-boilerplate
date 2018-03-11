@@ -1,15 +1,3 @@
-
-
-
-const userSchema = {
-  include: {
-    service: "users",
-    nameAs: "user",
-    parentField: "user",
-    childField: "_id"
-  }
-}
-
 module.exports = {
   before: {
     all: [],
@@ -32,7 +20,12 @@ module.exports = {
 		}
 	],
     get: [],
-    create: [],
+    create: [
+		async function(context) {
+			context.result.user = await context.app.service('users').get(context.result.user)
+			return context
+		}
+	],
     update: [],
     patch: [],
     remove: []
