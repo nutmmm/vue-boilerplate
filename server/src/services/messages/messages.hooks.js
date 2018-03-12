@@ -1,3 +1,21 @@
+function parseDate(date){
+	return	"["
+				+ date.getFullYear() + "/"
+				+ (date.getMonth() + 1) + "/"
+				+ date.getDate() + ' '
+
+				+ ((date.getHours() + 1) > 9 ? (date.getHours() + 1) : "0" + (date.getHours() + 1)) + ':'
+				+ (date.getMinutes() > 9 ? date.getMinutes() :  "0" + date.getMinutes())
+			+ "] ";
+}
+
+async function loadData(data, context){
+	data.user = await context.app.service('users').get(data.user);
+	data.date = parseDate(data.createdAt);
+	return data;
+	//let date = userArr.createdAt;
+}
+
 module.exports = {
   before: {
     all: [],
@@ -14,7 +32,7 @@ module.exports = {
     find: [
 		async function(context) {
 			for (let userArr of context.result.data){
-				userArr.user = await context.app.service('users').get(userArr.user)
+				userArr = await loadData(userArr, context);
 			}
 			return context
 		}
@@ -22,8 +40,7 @@ module.exports = {
     get: [],
     create: [
 		async function(context) {
-			context.result.user = await context.app.service('users').get(context.result.user)
-			return context
+			context.result.user = await loadData(context.result.user, context);
 		}
 	],
     update: [],
@@ -41,3 +58,4 @@ module.exports = {
     remove: []
   }
 };
+//Date.parse(
