@@ -2,7 +2,7 @@
 	<div class="messageContainer">
 		<ul>
 			<li v-for="message in messages" :key="message._id" class="message">
-				{{message.date}}{{ message.user.nick }}: {{ message.text }}
+				{{message.date}} {{ message.user.nick }}: {{ message.text }}
 			</li>
 		</ul>
 	</div>

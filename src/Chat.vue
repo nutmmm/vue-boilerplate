@@ -62,8 +62,6 @@
 			client.service("channels").on("patched", channel => {
 				this.updateChannel(channel)
 			})
-
-			console.log(client.service("messages").on)
 		},
 
 		components: {

@@ -6,7 +6,7 @@ function parseDate(date){
 
 				+ ((date.getHours() + 1) > 9 ? (date.getHours() + 1) : "0" + (date.getHours() + 1)) + ':'
 				+ (date.getMinutes() > 9 ? date.getMinutes() :  "0" + date.getMinutes())
-			+ "] ";
+			+ "]";
 }
 
 async function loadData(data, context){

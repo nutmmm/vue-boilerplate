@@ -1,7 +1,7 @@
 <template>
 	<div class="inputContainer">
 		<textarea v-model="message" class="messageInput"></textarea>
-		<button type="button" @click="send" class="messageButton">Send</button>
+		<div @click="send" class="messageButton">Send</div>
 	</div>
 </template>
 
@@ -39,13 +39,13 @@
 		padding-right: auto;
 		width:90px !important;
 		height: 90px !important;
-		margin: 5px;
+		margin: auto;
 		cursor: pointer;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		text-align: center;
-		margin-top: auto;
+		margin-bottom: 0px;
 	}
 
 	textarea {

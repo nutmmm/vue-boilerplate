@@ -41,8 +41,6 @@
 	.channel{
 		border: 1px solid black;
 		border-radius: 100px;
-		/*padding-top: 30px;
-		padding-bottom: 30px;*/
 		padding-left: auto;
 		padding-right: auto;
 		width: 100px;
