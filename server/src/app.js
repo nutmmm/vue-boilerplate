@@ -10,6 +10,7 @@ const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 const socketio = require('@feathersjs/socketio');
 
+//const public = require("./../public/index")
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -34,6 +35,10 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/', express.static(app.get('public')));
 
+app.get('/*',  function(req,res){
+	res.sendFile(path.join(app.get('public'), 'index.html'));
+});
+
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(socketio());
@@ -50,7 +55,9 @@ app.configure(channels);
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
-app.use(express.errorHandler({ logger }));
+app.use(express.errorHandler({
+	logger
+}));
 
 app.hooks(appHooks);
 

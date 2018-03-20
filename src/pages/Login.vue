@@ -22,13 +22,17 @@
 		data() {
 			return{
 				user: {
-					email: ""
+					email: "",
+					pass: ""
 				}
 			}
 		},
 		methods: {
 			Redirect(pageName){
 				this.$router.push(pageName);
+			},
+			login(){
+
 			}
 		}
 	}

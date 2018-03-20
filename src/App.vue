@@ -15,5 +15,6 @@
 		box-sizing: border-box;
 		padding: 0px;
 		margin: 0px;
+		height: 100%;
 	}
 </style>

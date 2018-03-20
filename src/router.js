@@ -3,7 +3,7 @@ import Router from "vue-router"
 import Login from "./pages/Login.vue"
 import Register from "./pages/Register.vue"
 import Chat from "./pages/Chat.vue"
-//import auth from "./libs/auth"
+import auth from "./libs/auth"
 
 Vue.use(Router)
 
@@ -13,8 +13,8 @@ const router = new Router({
 		{
 			path: "/",
 			name: "Chat",
-			component: Chat/*,
-			beforeEnter: auth.isLoggedIn*/
+			component: Chat,
+			beforeEnter: auth.isLoggedIn
 		},
 		{
 			path: "/login",

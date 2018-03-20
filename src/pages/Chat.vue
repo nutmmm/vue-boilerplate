@@ -1,10 +1,12 @@
 <template>
-	<span @click="Redirect('/register')">test</span>
+	<div>
+	test
+	</div>
 </template>
 
 <script>
 	export default{
-		
+
 	}
 </script>
 
