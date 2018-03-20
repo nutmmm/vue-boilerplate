@@ -22,24 +22,6 @@ module.exports = function (app) {
       remove: [
         authentication.hooks.authenticate('jwt')
       ]
-    },
-    after: {
-      create: [
-        hook => {
-          // If user doesn't exist, throw error
-          if (!hook.params.user.email) {
-            throw new errors.NotAuthenticated(
-              "Not authenticated. Please login again"
-            )
-          }
-
-          // Add user to the login response
-          hook.result.user = hook.params.user
-
-          // Don't expose sensitive information.
-          delete hook.result.user.password
-        }
-      ]
     }
   });
 };

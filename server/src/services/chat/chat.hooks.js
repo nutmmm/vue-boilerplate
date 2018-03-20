@@ -1,18 +1,8 @@
-
-const userSchema = {
-  include: {
-    service: "users",
-    parentField: "users",
-    childField: "_id",
-    asArray: true
-  }
-}
-
-
+const { authenticate } = require('@feathersjs/authentication').hooks;
 
 module.exports = {
   before: {
-    all: [],
+    all: [ authenticate('jwt') ],
     find: [],
     get: [],
     create: [],

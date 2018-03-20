@@ -5,46 +5,30 @@
 			<h3>Email:</h3>
 			<input type="text" v-model="user.email" />
 			<h3>Password:</h3>
-			<input type="text" v-model="user.pass" />
+			<input type="text" v-model="user.email" />
 			<div class="error">
 				{{ error }}
 			</div>
 			<div class="buttonContainer">
 				<button type="button" @click="login()">Login</button>
-				<button type="button" @click="register()">Or Register?</button>
+				<button type="button" @click="Redirect('/register')">Or Register?</button>
 			</div>
 		</form>
 	</div>
 </template>
 
 <script>
-	import auth from './libs/auth'
-
 	export default {
-		data(){
-			return {
+		data() {
+			return{
 				user: {
-					email: '',
-					pass: ''
-				},
-				error: ''
+					email: ""
+				}
 			}
 		},
 		methods: {
-			register(){
-				this.$router.push("/register");
-			},
-
-			login(){
-				auth.login(this.user.email, this.user.pass).then(
-					token => {
-						this.$router.push("/");
-					}
-				).catch(
-					args => {
-						this.error = 'Invalid login'
-					}
-				)
+			Redirect(pageName){
+				this.$router.push(pageName);
 			}
 		}
 	}

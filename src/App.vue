@@ -6,14 +6,13 @@
 
 <script>
 	export default {
-		name: 'app'
+		name: "app"
 	}
 </script>
 
 <style>
 	#app, body, html{
 		box-sizing: border-box;
-		height: 100%;
 		padding: 0px;
 		margin: 0px;
 	}
