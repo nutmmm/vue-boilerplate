@@ -12,7 +12,7 @@
 				{{ error }}
 			</div>
 			<div class="buttonContainer">
-				<button type="button" @click="register()">Register</button>
+				<button type="button" @click="Register()">Register</button>
 				<button type="button" @click="Redirect('/login')">Or Login?</button>
 			</div>
 		</form>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+	import auth from '../libs/auth'
+
 	export default {
 		data(){
 			return {
@@ -34,6 +36,16 @@
 		methods: {
 			Redirect(pageName){
 				this.$router.push(pageName);
+			},
+			Register(){
+			//	auth.register(this.user.name, this.user.email, this.user.pass);
+				auth.register(this.user.name, this.user.email, this.user.pass).then(
+					token => {
+						this.$router.push("/");
+					}
+				).catch(err =>{
+					console.log(err);
+				})
 			}
 		}
 	}

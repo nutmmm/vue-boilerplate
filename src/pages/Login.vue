@@ -5,12 +5,12 @@
 			<h3>Email:</h3>
 			<input type="text" v-model="user.email" />
 			<h3>Password:</h3>
-			<input type="text" v-model="user.email" />
+			<input type="text" v-model="user.pass" />
 			<div class="error">
 				{{ error }}
 			</div>
 			<div class="buttonContainer">
-				<button type="button" @click="login()">Login</button>
+				<button type="button" @click="Login()">Login</button>
 				<button type="button" @click="Redirect('/register')">Or Register?</button>
 			</div>
 		</form>
@@ -18,21 +18,28 @@
 </template>
 
 <script>
+	import auth from '../libs/auth'
+
 	export default {
 		data() {
 			return{
 				user: {
 					email: "",
 					pass: ""
-				}
+				},
+				error: ''
 			}
 		},
 		methods: {
 			Redirect(pageName){
 				this.$router.push(pageName);
 			},
-			login(){
-
+			Login(){
+				auth.login(this.user.email, this.user.pass).then(
+					token => {
+						this.$router.push("/");
+					}
+				)
 			}
 		}
 	}
