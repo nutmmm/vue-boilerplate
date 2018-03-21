@@ -23,6 +23,8 @@ export const actions = {
 
 export const getters = {
 	// This should contain methods for retrieving the data from the state
+	user: state => state.user,
+	loggedIn: state => state.loggedIn
 }
 
 export default {
