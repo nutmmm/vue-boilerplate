@@ -2,6 +2,9 @@ import client from "./client"
 import store from "../store"
 
 const auth = {
+	hasJWT() {
+		return client.passport.getJWT()
+	},
 	login(email, password){
 		const payload = email ? { strategy: "local", email, password } : {}
 
@@ -9,6 +12,7 @@ const auth = {
 		return client.authenticate(payload).then(res => {
 			store.commit("setUser", res.user)
 			store.commit("setLoggedIn", true)
+			store.dispatch("authenticate")
 		})
 		.catch(err => {
 			auth.logout()
@@ -29,10 +33,26 @@ const auth = {
 	},
 
 	isLoggedIn(from, to, next){
-		if(store.getters.isAuthenticated){
-			next();
-		}
-		next("login")
+		auth.hasJWT().then(token => {
+			if (!token) {
+				next("/login")
+			} else {
+				// has token, but Not authenticated
+				// Add store.getters.loggedIn for the case the store is not initialized yet
+				if (!store.getters.loggedIn) {
+					// try login using JWT
+					auth.login().then(next).catch(err => {
+						// If JWT token is not valid, redirect to login
+						next("/login")
+					})
+				} else {
+					next()
+				}
+			}
+		})
+		.catch(err => {
+			next("/login")
+		})
 	}
 }
 
