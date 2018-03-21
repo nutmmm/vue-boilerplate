@@ -39,7 +39,10 @@
 					token => {
 						this.$router.push("/");
 					}
-				)
+				).catch(err =>{
+					console.log(err);
+					this.error = err.name + ": " + err.message;
+				})
 			}
 		}
 	}
