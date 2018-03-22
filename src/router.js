@@ -14,17 +14,19 @@ const router = new Router({
 			path: "/",
 			name: "Chat",
 			component: Chat,
-			beforeEnter: auth.isLoggedIn
+			beforeEnter: auth.beforeRoot
 		},
 		{
 			path: "/login",
 			name: "Login",
-			component: Login
+			component: Login,
+			beforeEnter: auth.beforeLogin
 		},
 		{
 			path: "/register",
 			name: "Register",
-			component: Register
+			component: Register,
+			beforeEnter: auth.beforeLogin
 		},
 		// If access a non-existing route, redirect to root route
 		{

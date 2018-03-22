@@ -10,8 +10,8 @@ const auth = {
 
 		// If payload is {} it will authenticate using JWT from localStorage
 		return client.authenticate(payload).then(res => {
-			store.commit("setUser", res.user);
-			store.commit("setLoggedIn", true);
+			store.dispatch("setUser", res.user);
+			store.dispatch("setLoggedIn", true);
 		})
 		.catch(err => {
 			auth.logout();
@@ -31,9 +31,10 @@ const auth = {
 		})
 	},
 
-	isLoggedIn(from, to, next){
+	beforeRoot(from, to, next){
 		auth.hasJWT().then(token => {
 			if (!token) {
+				// not logged in
 				next("/login");
 			}
 			else {
@@ -45,14 +46,40 @@ const auth = {
 						// If JWT token is not valid, redirect to login
 						next("/login");
 					})
-				} else {
+				}
+				else {
+					// logged in
 					next();
 				}
 			}
 		})
 		.catch(err => {
+			// not logged in
 			next("/login");
 		})
+	},
+
+	beforeLogin(from, to, next){
+		auth.hasJWT().then(token => {
+			if (!token) {
+				next();
+			}
+			else {
+				if (store.getters.loggedIn) {
+					next("/");
+				}
+				else{
+					auth.login().then(res => {
+						next("/")
+					}).catch(err => {
+						next()
+					});
+				}
+			}
+		})
+		.catch(err => {
+			next();
+		});
 	}
 }
 export default auth;
