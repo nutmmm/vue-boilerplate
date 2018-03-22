@@ -9,6 +9,7 @@ module.exports = function (app) {
     nick: {type: String },
     email: {type: String, unique: true},
     password: { type: String },
+	channels: []
 
 
   }, {
