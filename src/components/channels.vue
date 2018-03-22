@@ -2,7 +2,7 @@
 	<div class="channelListContainer">
 		<ul class="channelList">
 			<li v-for="channel in channels" :key="channel._id" @click="changeChannel(channel)" class="channel">
-				{{ channel.name }}
+				{{ channel }}
 			</li>
 		</ul>
 	</div>
@@ -51,5 +51,6 @@
 		justify-content: center;
 		align-items: center;
 		text-align: center;
+		font-size: 14px;
 	}
 </style>

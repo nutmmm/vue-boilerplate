@@ -1,4 +1,3 @@
-
 import client from "./client";
 
 const managerSvc = client.service("manager");

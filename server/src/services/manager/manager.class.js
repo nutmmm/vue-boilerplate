@@ -42,9 +42,7 @@ class Service {
 			default:
 				return customError("Unknown request \"" + data.req + "\"");
 		}
-		/*if (Array.isArray(data)) {
-		return await Promise.all(data.map(current => this.create(current)));
-		}*/
+		
 		return customError("Unknown - reached end of logic");
 	}
 
