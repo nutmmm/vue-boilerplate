@@ -33,16 +33,19 @@ class Service {
 	console.log(data);
 		if(!data.req){
 			//return "Error: Data should be in the following format: { req: \"REQUESTNAME\" }";
-			return customError("Data should be in the following format: { req: \"REQUESTNAME\" }");
+			return customError("Data should be in the following format: { req: \"REQUESTNAME\", PARAMETER_ONE: VALUE, PARAMETER_TWO }");
 		}
 
 		switch (data.req) {
 			case "getChannels":
 				return customMessage(this.app.channels);
+			case "joinChannel":
+				this.app.channel('test').join(this.app._events.connection);
+				return customMessage("ok");
 			default:
 				return customError("Unknown request \"" + data.req + "\"");
 		}
-		
+
 		return customError("Unknown - reached end of logic");
 	}
 

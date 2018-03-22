@@ -10,26 +10,27 @@ const service = {
 	},
 
 	connectToChannel(myselfId, channelId, currentChannelId) {
-		/*const promises = [];
+		const promises = [];
 
 		// Disconnect myself from currentChannel
 		if (currentChannelId) {
 			promises.push(
-				channelSvc.patch(currentChannelId, {
+				/*channelSvc.patch(currentChannelId, {
 					$pull: { users: myselfId }
-				})
+				})*/
+				managerSvc.create({req: "leaveChannel"})
 			);
 		}
 
 		// Add myself to channel
 		promises.push(
-			channelSvc.patch(channelId, {
+			/*channelSvc.patch(channelId, {
 				$push: { users: myselfId }
-			})
+			})*/
+			managerSvc.create({req: "joinChannel"})
 		);
 
-		return Promise.all(promises);*/
-		return;
+		return Promise.all(promises);
 	},
 
 	getMessages(channelId) {

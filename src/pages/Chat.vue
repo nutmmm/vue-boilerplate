@@ -4,7 +4,7 @@
 			Logout
 		</div>
 		<!--<channels :channels="channels" :current="currentChannel" @selectChannel="onSelectChannel"></channels>-->
-		<channels :channels="channels"></channels>
+		<channels :channels="channels" @selectChannel="onSelectChannel"></channels>
 		<div class="right">
 			<!--<chatHistory :messages="messages"></chatHistory>-->
 			<!--<chat @sendMessage="sendMessage"></chat>-->
@@ -49,9 +49,10 @@
 				'selectChannel',
 				'updateChannel'
 			]),
-		/*	onSelectChannel(channel) {
+			onSelectChannel(channel) {
+				console.log(this.user)
 				this.selectChannel({ channel, userId: this.user._id });
-			},
+			},/*
 			sendMessage(message) {
 				// Only send if it's connected to a channel
 				if (this.currentChannel._id) {

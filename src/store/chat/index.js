@@ -1,5 +1,4 @@
 import service from "../../libs/services";
-console.log(service);
 
 export const state = {
 	// This should contain variables that you would like to preserve
@@ -42,16 +41,15 @@ export const actions = {
 	getChannels({ commit }) {
 		service.getChannels().then(res => {
 			if(res.status === "ok"){
-				console.log(res.message)
 				commit("setChannels", res.message)
 			}
 			else{
 				console.error("Error: " + res.message);
 			}
 		}).catch(err => {
-			console.log(err);
+			console.error(err);
 		});
-	}/*,
+	},/*
 
 	updateChannel({ commit, state }, channel) {
 		commit("updateChannel", channel)
@@ -59,21 +57,22 @@ export const actions = {
 		if (channel._id === state.currentChannelId) {
 			commit("setCurrentChannel", channel)
 		}
-	},
+	},*/
 
 	selectChannel({ commit, state }, { channel, userId }) {
-		commit("clearMessages")
+		console.log("selectChannel")
+		//commit("clearMessages")
 
 		service.connectToChannel(userId, channel._id, state.currentChannelId).then(() => {
-			commit("setCurrentChannel", channel)
+			//commit("setCurrentChannel", channel)
 
 			// Get messages for the current channel
-			return service.getMessages(channel._id)
+			//return service.getMessages(channel._id)
 		})
 		.then(messages => {
-			commit("setMessages", messages.data)
+		//	commit("setMessages", messages.data)
 		})
-	}*/
+	}
 }
 
 export const getters = {

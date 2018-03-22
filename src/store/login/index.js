@@ -19,7 +19,9 @@ export const actions = {
 	// This should contain methods that do not modify the state directly
 	// They may however modify the stat by calling a method in the mutations
 	// This may be done via: commit("mutation_name", data)
-	setUser: (state, user) => state.commit("setUser", user),
+	setUser: (state, user) => {
+		state.commit("setUser", user)
+	},
 	setLoggedIn: (state, loggedIn) => state.commit("setLoggedIn", loggedIn)
 }
 
