@@ -1,10 +1,11 @@
-import client from "./client"
-import store from "../store"
+import client from "./client";
+import store from "../store";
 
 const auth = {
 	hasJWT() {
 		return client.passport.getJWT();
 	},
+
 	login(email, password){
 		const payload = email ? { strategy: "local", email, password } : {};
 
@@ -28,13 +29,12 @@ const auth = {
 			nick,
 			email,
 			password
-		})
+		});
 	},
 
 	beforeRoot(from, to, next){
 		auth.hasJWT().then(token => {
 			if (!token) {
-				// not logged in
 				next("/login");
 			}
 			else {
@@ -48,13 +48,11 @@ const auth = {
 					})
 				}
 				else {
-					// logged in
 					next();
 				}
 			}
 		})
 		.catch(err => {
-			// not logged in
 			next("/login");
 		})
 	},
@@ -70,9 +68,9 @@ const auth = {
 				}
 				else{
 					auth.login().then(res => {
-						next("/")
+						next("/");
 					}).catch(err => {
-						next()
+						next();
 					});
 				}
 			}

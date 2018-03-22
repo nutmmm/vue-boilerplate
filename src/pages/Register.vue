@@ -7,7 +7,7 @@
 			<h3>Email:</h3>
 			<input type="text" v-model="user.email" />
 			<h3>Password:</h3>
-			<input type="text" v-model="user.pass" />
+			<input type="password" v-model="user.pass" />
 			<div class="error">
 				{{ error }}
 			</div>
@@ -38,7 +38,6 @@
 				this.$router.push(pageName);
 			},
 			Register(){
-			//	auth.register(this.user.name, this.user.email, this.user.pass);
 				auth.register(this.user.name, this.user.email, this.user.pass).then(
 					token => {
 						this.$router.push("/");
