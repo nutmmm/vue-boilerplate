@@ -4,7 +4,7 @@
 			Logout
 		</div>
 		<!--<channels :channels="channels" :current="currentChannel" @selectChannel="onSelectChannel"></channels>-->
-		<channels></channels>
+		<channels :channels="channels"></channels>
 		<div class="right">
 			<!--<chatHistory :messages="messages"></chatHistory>-->
 			<!--<chat @sendMessage="sendMessage"></chat>-->
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-	import auth from '../libs/auth';
 	import Channels from '../components/channels.vue';
 	import Users from '../components/users.vue';
 	import ChatHistory from '../components/chatHistory.vue';
@@ -24,20 +23,21 @@
 	import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 	import client from '../libs/client'
-	import service from '../libs/services'
+	import auth from '../libs/auth';
+	import service from '../libs/services';
 
 	export default {
-	/*	created(){
+		created(){
 			this.getChannels();
 
 			// Setup events
-			client.service("messages").on("created", message => {
+			/*client.service("messages").on("created", message => {
 				this.addMessage(message);
 			})
 
 			client.service("channels").on("patched", channel => {
 				this.updateChannel(channel);
-			})
+			})*/
 		},
 
 		methods: {
@@ -49,7 +49,7 @@
 				'selectChannel',
 				'updateChannel'
 			]),
-			onSelectChannel(channel) {
+		/*	onSelectChannel(channel) {
 				this.selectChannel({ channel, userId: this.user._id });
 			},
 			sendMessage(message) {
@@ -57,25 +57,25 @@
 				if (this.currentChannel._id) {
 					service.sendMessage(this.currentChannel._id, this.user._id, message);
 				}
-			},
+			},*/
 			Logout(){
 				auth.logout();
 				this.$router.push("/login");
 			}
 		},
 
-		computed: {
+		computed: {/*
 			users() {
 				const usersExist = this.currentChannel && this.currentChannel.users;
 				return usersExist ? this.currentChannel.users : [];
-			},
+			},*/
 			...mapGetters([
 				'channels',
 				'messages',
 				'currentChannel',
 				'user'
 			])
-		},*/
+		},
 
 		components: {
 			Channels,

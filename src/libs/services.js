@@ -1,16 +1,17 @@
-import client from "./client"
 
-//const channelSvc = client.service("channels");
-//const messagesSvc = client.service("messages");
-//const usersSvc = client.service("users");
+import client from "./client";
+
+const managerSvc = client.service("manager");
+const messagesSvc = client.service("messages");
+const usersSvc = client.service("users");
 
 const service = {
 	getChannels() {
-		//return channelSvc.find();
-	},/*
+		return managerSvc.create({req: "getChannels"});
+	},
 
 	connectToChannel(myselfId, channelId, currentChannelId) {
-		const promises = [];
+		/*const promises = [];
 
 		// Disconnect myself from currentChannel
 		if (currentChannelId) {
@@ -28,26 +29,30 @@ const service = {
 			})
 		);
 
-		return Promise.all(promises);
+		return Promise.all(promises);*/
+		return;
 	},
 
 	getMessages(channelId) {
-		return messagesSvc.find({
+		/*return messagesSvc.find({
 			query: {
 				channel: channelId
 			}
-		})
+		})*/
+		return;
 	},
 
 	sendMessage(channel, user, text) {
-		return client.service("messages").create({ channel, user, text }).catch(err => {
+	/*	return client.service("messages").create({ channel, user, text }).catch(err => {
 			console.log();
-		});
+		});*/
+		return;
 	},
 
 	getMsgSvc(){
-		return messagesSvc;
-	}*/
+		//return messagesSvc;
+		return;
+	}
 }
 
 export default service;

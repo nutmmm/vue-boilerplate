@@ -3,7 +3,7 @@ const createService = require('./manager.class.js');
 const hooks = require('./manager.hooks');
 
 module.exports = function (app) {
-  
+
   const paginate = app.get('paginate');
 
   const options = {
@@ -12,7 +12,7 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/manager', createService(options));
+  app.use('/manager', createService(options, app));
 
   // Get our initialized service so that we can register hooks and filters
   const service = app.service('manager');

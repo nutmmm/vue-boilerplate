@@ -1,5 +1,5 @@
-import client from "./client"
-import store from "../store"
+import client from "./client";
+import store from "../store";
 
 const auth = {
 	hasJWT() {
