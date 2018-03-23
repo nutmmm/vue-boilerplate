@@ -4,13 +4,14 @@
 			Logout
 		</div>
 		<!--<channels :channels="channels" :current="currentChannel" @selectChannel="onSelectChannel"></channels>-->
-		<channels :channels="channels" @selectChannel="onSelectChannel"></channels>
+		<channels :channels="channels" @selectChannel="onSelectChannel" @createChannel="onCreateChannel"></channels>
 		<div class="right">
 			<!--<chatHistory :messages="messages"></chatHistory>-->
 			<!--<chat @sendMessage="sendMessage"></chat>-->
 			<chatHistory></chatHistory>
 			<chat></chat>
 		</div>
+		<newChannel :class="{hidden: !newChannelDialog}" @cancelDialog="onCancelDialog" @confirmDialog="onConfirmDialog"></newChannel>
 	</div>
 </template>
 
@@ -19,6 +20,7 @@
 	import Users from '../components/users.vue';
 	import ChatHistory from '../components/chatHistory.vue';
 	import Chat from '../components/chat.vue';
+	import NewChannel from '../components/newChannel.vue';
 
 	import { mapGetters, mapMutations, mapActions } from 'vuex';
 
@@ -27,6 +29,12 @@
 	import service from '../libs/services';
 
 	export default {
+		data(){
+			return{
+				newChannelDialog: false
+			}
+		},
+
 		created(){
 			this.getChannels();
 
@@ -44,15 +52,36 @@
 			...mapMutations([
 				'addMessage'
 			]),
+
 			...mapActions([
 				'getChannels',
 				'selectChannel',
-				'updateChannel'
+				'updateChannel',
+				'createChannel',
+				'addChannel'
 			]),
+
 			onSelectChannel(channel) {
-				console.log(this.user)
-				this.selectChannel({ channel, userId: this.user._id });
-			},/*
+				/*console.log(this.user)
+				this.selectChannel({ channel, userId: this.user._id });*/
+			},
+
+			onCreateChannel(){
+				this.newChannelDialog = true;
+			},
+
+			onCancelDialog(){
+				this.newChannelDialog = false;
+			},
+
+			onConfirmDialog(channelName){
+				this.createChannel({ name: channelName, userId: this.user._id }).then(res => {
+					this.addChannel({ channel: res });
+				}).catch(err => {
+					console.error(err);
+				});
+			},
+			/*
 			sendMessage(message) {
 				// Only send if it's connected to a channel
 				if (this.currentChannel._id) {
@@ -82,12 +111,17 @@
 			Channels,
 			Users,
 			ChatHistory,
-			Chat
+			Chat,
+			NewChannel
 		}
 	}
 </script>
 
 <style>
+	.hidden{
+		display: none;
+	}
+
 	.chatContainer{
 		display: flex;
   		flex-wrap: wrap;

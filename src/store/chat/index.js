@@ -23,7 +23,12 @@ export const mutations = {
 */
 	setChannels(state, channels) {
 		state.channels = channels
-	}/*,
+	},
+
+	addChannel(state, channel){
+		state.channels.push(channel);
+	}
+	/*
 	setCurrentChannel(state, channel) {
 		state.currentChannelId = channel._id
 	},
@@ -38,18 +43,23 @@ export const mutations = {
 export const actions = {
 	// This should contain methods that do not modify the state directly
 	// They may however modify the stat by calling a method in the mutations
-	getChannels({ commit }) {
+	getChannels({ commit, state }) {
 		service.getChannels().then(res => {
-			if(res.status === "ok"){
-				commit("setChannels", res.message)
-			}
-			else{
-				console.error("Error: " + res.message);
-			}
+			commit("setChannels", res.data)
 		}).catch(err => {
 			console.error(err);
 		});
-	},/*
+
+	},
+
+	createChannel({ commit, state }, { name, userId }){
+		return service.createChannel(name, userId);
+	},
+
+	addChannel({commit, state}, { channel }){
+		commit("addChannel", channel)
+	}
+	/*,
 
 	updateChannel({ commit, state }, channel) {
 		commit("updateChannel", channel)
@@ -59,7 +69,7 @@ export const actions = {
 		}
 	},*/
 
-	selectChannel({ commit, state }, { channel, userId }) {
+	/*selectChannel({ commit, state }, { channel, userId }) {
 		console.log("selectChannel")
 		//commit("clearMessages")
 
@@ -72,7 +82,7 @@ export const actions = {
 		.then(messages => {
 		//	commit("setMessages", messages.data)
 		})
-	}
+	}*/
 }
 
 export const getters = {

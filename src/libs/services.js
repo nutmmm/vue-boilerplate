@@ -1,12 +1,21 @@
 import client from "./client";
 
 const managerSvc = client.service("manager");
+const channelSvc = client.service("channels");
 const messagesSvc = client.service("messages");
 const usersSvc = client.service("users");
 
 const service = {
+	createChannel(name, myselfId){
+		return channelSvc.create({ name: name, admins: [myselfId] });
+	},
+
 	getChannels() {
-		return managerSvc.create({req: "getChannels"});
+		return channelSvc.find({
+			query: {
+				
+			}
+		});
 	},
 
 	connectToChannel(myselfId, channelId, currentChannelId) {
