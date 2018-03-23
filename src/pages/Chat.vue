@@ -8,7 +8,6 @@
 		<div class="right">
 			<chatHistory :messages="messages"></chatHistory>
 			<chat @sendMessage="sendMessage"></chat>
-			<chat></chat>
 		</div>
 		<newChannel :class="{hidden: !newChannelDialog}" @cancelDialog="onCancelDialog" @confirmDialog="onConfirmDialog"></newChannel>
 	</div>
@@ -38,13 +37,13 @@
 			this.getChannels();
 
 			// Setup events
-			/*client.service("messages").on("created", message => {
+			client.service("messages").on("created", message => {
 				this.addMessage(message);
 			})
 
 			client.service("channels").on("patched", channel => {
 				this.updateChannel(channel);
-			})*/
+			})
 		},
 
 		methods: {
@@ -61,8 +60,7 @@
 			]),
 
 			onSelectChannel(channel) {
-				console.log(this.user._id)
-				/*this.selectChannel({ channel, userId: this.user._id });*/
+				this.selectChannel({ channel, userId: this.user._id });
 			},
 
 			onCreateChannel(){
@@ -84,9 +82,9 @@
 			sendMessage(message) {
 				console.log("sendMessage")
 				// Only send if it's connected to a channel
-				/*if (this.currentChannel._id) {
+				if (this.currentChannel._id) {
 					service.sendMessage(this.currentChannel._id, this.user._id, message);
-				}*/
+				}
 			},
 
 			Logout(){

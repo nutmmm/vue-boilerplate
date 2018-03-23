@@ -9,7 +9,7 @@ export const state = {
 
 export const mutations = {
 	// This should contain methods for modifying the state section but should not be called directly
-/*	addMessage(state, message) {
+	addMessage(state, message) {
 		if (message.channel === state.currentChannelId) {
 			state.messages.push(message)
 		}
@@ -20,15 +20,15 @@ export const mutations = {
 	clearMessages(state) {
 		state.messages = []
 	},
-*/
+
 	setChannels(state, channels) {
 		state.channels = channels
 	},
 
 	addChannel(state, channel){
 		state.channels.push(channel);
-	}
-	/*
+	},
+
 	setCurrentChannel(state, channel) {
 		state.currentChannelId = channel._id
 	},
@@ -37,7 +37,7 @@ export const mutations = {
 		state.channels = state.channels.map(
 			c => (c._id === channel._id ? channel : c)
 		)
-	}*/
+	}
 }
 
 export const actions = {
@@ -58,8 +58,7 @@ export const actions = {
 
 	addChannel({commit, state}, { channel }){
 		commit("addChannel", channel)
-	}
-	/*,
+	},
 
 	updateChannel({ commit, state }, channel) {
 		commit("updateChannel", channel)
@@ -67,22 +66,21 @@ export const actions = {
 		if (channel._id === state.currentChannelId) {
 			commit("setCurrentChannel", channel)
 		}
-	},*/
+	},
 
-	/*selectChannel({ commit, state }, { channel, userId }) {
-		console.log("selectChannel")
-		//commit("clearMessages")
+	selectChannel({ commit, state }, { channel, userId }) {
+		commit("clearMessages")
 
 		service.connectToChannel(userId, channel._id, state.currentChannelId).then(() => {
-			//commit("setCurrentChannel", channel)
+			commit("setCurrentChannel", channel)
 
 			// Get messages for the current channel
-			//return service.getMessages(channel._id)
+			return service.getMessages(channel._id)
 		})
 		.then(messages => {
-		//	commit("setMessages", messages.data)
+			commit("setMessages", messages.data)
 		})
-	}*/
+	}
 }
 
 export const getters = {

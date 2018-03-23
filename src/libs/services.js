@@ -40,24 +40,21 @@ const service = {
 	},
 
 	getMessages(channelId) {
-		/*return messagesSvc.find({
+		return messagesSvc.find({
 			query: {
 				channel: channelId
 			}
-		})*/
-		return;
+		})
 	},
 
 	sendMessage(channel, user, text) {
-	/*	return client.service("messages").create({ channel, user, text }).catch(err => {
+		return client.service("messages").create({ channel, user, text }).catch(err => {
 			console.log();
-		});*/
-		return;
+		});
 	},
 
 	getMsgSvc(){
-		//return messagesSvc;
-		return;
+		return messagesSvc;
 	}
 }
 
