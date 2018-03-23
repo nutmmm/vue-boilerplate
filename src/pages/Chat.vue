@@ -6,9 +6,8 @@
 		<!--<channels :channels="channels" :current="currentChannel" @selectChannel="onSelectChannel"></channels>-->
 		<channels :channels="channels" @selectChannel="onSelectChannel" @createChannel="onCreateChannel"></channels>
 		<div class="right">
-			<!--<chatHistory :messages="messages"></chatHistory>-->
-			<!--<chat @sendMessage="sendMessage"></chat>-->
-			<chatHistory></chatHistory>
+			<chatHistory :messages="messages"></chatHistory>
+			<chat @sendMessage="sendMessage"></chat>
 			<chat></chat>
 		</div>
 		<newChannel :class="{hidden: !newChannelDialog}" @cancelDialog="onCancelDialog" @confirmDialog="onConfirmDialog"></newChannel>
@@ -62,8 +61,8 @@
 			]),
 
 			onSelectChannel(channel) {
-				/*console.log(this.user)
-				this.selectChannel({ channel, userId: this.user._id });*/
+				console.log(this.user._id)
+				/*this.selectChannel({ channel, userId: this.user._id });*/
 			},
 
 			onCreateChannel(){
@@ -81,13 +80,15 @@
 					console.error(err);
 				});
 			},
-			/*
+
 			sendMessage(message) {
+				console.log("sendMessage")
 				// Only send if it's connected to a channel
-				if (this.currentChannel._id) {
+				/*if (this.currentChannel._id) {
 					service.sendMessage(this.currentChannel._id, this.user._id, message);
-				}
-			},*/
+				}*/
+			},
+
 			Logout(){
 				auth.logout();
 				this.$router.push("/login");

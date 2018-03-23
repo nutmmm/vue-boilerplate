@@ -1,6 +1,5 @@
 import client from "./client";
 
-const managerSvc = client.service("manager");
 const channelSvc = client.service("channels");
 const messagesSvc = client.service("messages");
 const usersSvc = client.service("users");
@@ -13,7 +12,7 @@ const service = {
 	getChannels() {
 		return channelSvc.find({
 			query: {
-				
+
 			}
 		});
 	},
@@ -24,19 +23,17 @@ const service = {
 		// Disconnect myself from currentChannel
 		if (currentChannelId) {
 			promises.push(
-				/*channelSvc.patch(currentChannelId, {
+				channelSvc.patch(currentChannelId, {
 					$pull: { users: myselfId }
-				})*/
-				managerSvc.create({req: "leaveChannel"})
+				})
 			);
 		}
 
 		// Add myself to channel
 		promises.push(
-			/*channelSvc.patch(channelId, {
+			channelSvc.patch(channelId, {
 				$push: { users: myselfId }
-			})*/
-			managerSvc.create({req: "joinChannel"})
+			})
 		);
 
 		return Promise.all(promises);
