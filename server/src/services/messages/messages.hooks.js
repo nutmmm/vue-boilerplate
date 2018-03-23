@@ -41,7 +41,8 @@ module.exports = {
 				}
 
 				return context
-			}],
+			}
+		],
 		find: [],
 		get: [],
 		create: [],

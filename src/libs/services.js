@@ -55,6 +55,15 @@ const service = {
 
 	getMsgSvc(){
 		return messagesSvc;
+	},
+
+	getUser( userId ){
+		console.log(userId)
+		return channelSvc.find({
+			query: {
+				_id: userId
+			}
+		});
 	}
 }
 

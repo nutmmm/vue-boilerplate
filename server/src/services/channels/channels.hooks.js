@@ -12,7 +12,14 @@ module.exports = {
   },
 
   after: {
-    all: [],
+    all: [
+		async function(context) {
+			context.params.user = (await context.app.service('users').get(context.params.user)).nick;
+				console.log(context.params.user)
+
+			return context
+		}
+	],
     find: [],
     get: [],
     create: [],

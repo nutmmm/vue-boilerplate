@@ -9,6 +9,9 @@
 			<chatHistory :messages="messages"></chatHistory>
 			<chat @sendMessage="sendMessage"></chat>
 		</div>
+		<div class="connectedUsers">
+        	<users :users="users"></users>
+		</div>
 		<newChannel :class="{hidden: !newChannelDialog}" @cancelDialog="onCancelDialog" @confirmDialog="onConfirmDialog"></newChannel>
 	</div>
 </template>
@@ -42,7 +45,7 @@
 			})
 
 			client.service("channels").on("patched", channel => {
-				this.updateChannel(channel);
+				//this.updateChannel(channel);
 			})
 		},
 
@@ -80,7 +83,6 @@
 			},
 
 			sendMessage(message) {
-				console.log("sendMessage")
 				// Only send if it's connected to a channel
 				if (this.currentChannel._id) {
 					service.sendMessage(this.currentChannel._id, this.user._id, message);
@@ -93,11 +95,11 @@
 			}
 		},
 
-		computed: {/*
+		computed: {
 			users() {
 				const usersExist = this.currentChannel && this.currentChannel.users;
 				return usersExist ? this.currentChannel.users : [];
-			},*/
+			},
 			...mapGetters([
 				'channels',
 				'messages',
@@ -132,12 +134,19 @@
 
 	.right{
 		height: 100%;
-    	width: calc(100% - 120px);
+    	width: calc(90% - 120px);
+	}
+
+	.connectedUsers{
+		box-sizing: border-box;
+		width: 10%;
+		height: 100%;
+		padding: 10px;
 	}
 
 	.logoutButton{
 		position: fixed;
-		right: 30px;
+		right: calc(30px + 10%);
 		top: 30px;
 		border: 1px solid black;
 		border-radius: 100px;
