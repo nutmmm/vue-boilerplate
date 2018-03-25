@@ -4,6 +4,9 @@
 			<li v-for="channel in channels" :key="channel._id" @click="changeChannel(channel)" class="channel">
 				{{ channel.name }}
 			</li>
+			<li @click="createChannel()" class="channel">
+				+
+			</li>
 		</ul>
 	</div>
 </template>
@@ -17,8 +20,11 @@
 		methods: {
 			changeChannel(channel) {
 				if (this.current !== channel) {
-					this.$emit('selectChannel', channel)
+					this.$emit('selectChannel', channel);
 				}
+			},
+			createChannel() {
+				this.$emit('createChannel');
 			}
 		}
 	}
@@ -51,5 +57,10 @@
 		justify-content: center;
 		align-items: center;
 		text-align: center;
+		font-size: 14px;
+	}
+
+	.channel:last-of-type{
+		font-size: 30px;
 	}
 </style>

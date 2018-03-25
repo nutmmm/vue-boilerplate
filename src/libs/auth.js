@@ -1,23 +1,27 @@
-import client from "./client"
-import store from "../store"
+import client from "./client";
+import store from "../store";
 
 const auth = {
 	hasJWT() {
-		return client.passport.getJWT()
+		return client.passport.getJWT();
 	},
 
-	login(email, password) {
-		const payload = email ? { strategy: "local", email, password } : {}
+	login(email, password){
+		const payload = email ? { strategy: "local", email, password } : {};
 
 		// If payload is {} it will authenticate using JWT from localStorage
 		return client.authenticate(payload).then(res => {
-			store.commit("setUser", res.user)
-			store.commit("setLoggedIn", true)
+			store.dispatch("setUser", res.user);
+			store.dispatch("setLoggedIn", true);
 		})
 		.catch(err => {
-			auth.logout()
-			throw err
+			auth.logout();
+			throw err;
 		})
+	},
+
+	logout(){
+		client.logout();
 	},
 
 	register(nick, email, password) {
@@ -25,35 +29,55 @@ const auth = {
 			nick,
 			email,
 			password
-		})
+		});
 	},
 
-	logout() {
-		client.logout()
-		store.commit("setLoggedIn", false)
-	},
-
-	isLoggedIn(from, to, next){
+	beforeRoot(from, to, next){
 		auth.hasJWT().then(token => {
 			if (!token) {
-				next("/login")
-			} else {
+				next("/login");
+			}
+			else {
 				// has token, but Not authenticated
 				// Add store.getters.loggedIn for the case the store is not initialized yet
 				if (!store.getters.loggedIn) {
 					// try login using JWT
 					auth.login().then(next).catch(err => {
 						// If JWT token is not valid, redirect to login
-						next("/login")
+						next("/login");
 					})
-				} else {
-					next()
+				}
+				else {
+					next();
 				}
 			}
 		})
 		.catch(err => {
-			next("/login")
+			next("/login");
 		})
+	},
+
+	beforeLogin(from, to, next){
+		auth.hasJWT().then(token => {
+			if (!token) {
+				next();
+			}
+			else {
+				if (store.getters.loggedIn) {
+					next("/");
+				}
+				else{
+					auth.login().then(res => {
+						next("/");
+					}).catch(err => {
+						next();
+					});
+				}
+			}
+		})
+		.catch(err => {
+			next();
+		});
 	}
 }
 export default auth;

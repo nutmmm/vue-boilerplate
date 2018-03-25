@@ -4,8 +4,8 @@ var webpack = require('webpack')
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, "server", "public"),
-    publicPath: '/',
+	path: path.resolve(__dirname, "server", "public"),
+	publicPath: "/",
     filename: 'build.js'
   },
   module: {
@@ -27,8 +27,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        loader: 'babel-loader'/*,
+        exclude: /node_modules/*/
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -53,10 +53,11 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: 'source-map'
+  devtool: '#eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({

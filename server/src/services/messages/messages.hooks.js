@@ -1,3 +1,5 @@
+const { authenticate } = require('@feathersjs/authentication').hooks;
+
 function parseDate(date){
 	return	"["
 				+ date.getFullYear() + "/"
@@ -9,53 +11,53 @@ function parseDate(date){
 			+ "]";
 }
 
-async function loadData(data, context){
+async function loadData(data, context, find = false){
 	data.user = await context.app.service('users').get(data.user);
 	data.date = parseDate(data.createdAt);
 	return data;
-	//let date = userArr.createdAt;
 }
 
 module.exports = {
-  before: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
-  },
+	before: {
+		all: [ authenticate('jwt') ],
+		find: [],
+		get: [],
+		create: [],
+		update: [],
+		patch: [],
+		remove: []
+	},
 
-  after: {
-    all: [],
-    find: [
-		async function(context) {
-			for (let userArr of context.result.data){
-				userArr = await loadData(userArr, context);
+	after: {
+		all: [
+			async function(context) {
+				if(Array.isArray(context.result.data)){
+					for (let userArr of context.result.data){
+						userArr = await loadData(userArr, context, true);
+					}
+				}
+				else{
+					context.result = await loadData(context.result, context);
+				}
+
+				return context
 			}
-			return context
-		}
-	],
-    get: [],
-    create: [
-		async function(context) {
-			context.result.user = await loadData(context.result.user, context);
-		}
-	],
-    update: [],
-    patch: [],
-    remove: []
-  },
+		],
+		find: [],
+		get: [],
+		create: [],
+		update: [],
+		patch: [],
+		remove: []
+	},
 
-  error: {
-    all: [],
-    find: [],
-    get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
-  }
+	error: {
+		all: [],
+		find: [],
+		get: [],
+		create: [],
+		update: [],
+		patch: [],
+		remove: []
+	}
 };
-//Date.parse(

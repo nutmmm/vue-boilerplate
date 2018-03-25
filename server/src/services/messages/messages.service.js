@@ -1,4 +1,4 @@
-// Initializes the `messages` service on path `/server/src/models`
+// Initializes the `messages` service on path `/messages`
 const createService = require('feathers-mongoose');
 const createModel = require('../../models/messages.model');
 const hooks = require('./messages.hooks');
@@ -10,10 +10,7 @@ module.exports = function (app) {
   const options = {
     name: 'messages',
     Model,
-    paginate: {
-      default: 200,
-      max: 500
-    }
+    paginate
   };
 
   // Initialize our service with any options it requires
@@ -23,12 +20,4 @@ module.exports = function (app) {
   const service = app.service('messages');
 
   service.hooks(hooks);
-  app.service('messages').on('created', (message, context) => app.publish());
-  app.publish((data, hook) => { // eslint-disable-line no-unused-vars
-    // Here you can add event publishers to channels set up in `channels.js`
-    // To publish only for a specific event use `app.publish(eventname, () => {})`
-
-    // e.g. to publish all service events to all authenticated users use
-    return app.channel('Puppies');
-  });
 };

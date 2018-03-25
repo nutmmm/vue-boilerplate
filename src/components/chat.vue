@@ -8,12 +8,14 @@
 <script>
 	export default {
 		data() {
-			return { message: '' }
+			return {
+				message: ''
+			}
 		},
 		methods: {
 			send() {
-				this.$emit("sendMessage", this.message)
-				this.message = ""
+				this.$emit("sendMessage", this.message);
+				this.message = "";
 			}
 		}
 	}

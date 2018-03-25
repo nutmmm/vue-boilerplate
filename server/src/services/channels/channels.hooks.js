@@ -1,18 +1,8 @@
-
-const userSchema = {
-  include: {
-    service: "users",
-    parentField: "users",
-    childField: "_id",
-    asArray: true
-  }
-}
-
-
+const { authenticate } = require('@feathersjs/authentication').hooks;
 
 module.exports = {
   before: {
-    all: [],
+    all: [ authenticate('jwt') ],
     find: [],
     get: [],
     create: [],
@@ -22,7 +12,14 @@ module.exports = {
   },
 
   after: {
-    all: [],
+    all: [
+		async function(context) {
+			context.params.user = (await context.app.service('users').get(context.params.user)).nick;
+				console.log(context.params.user)
+
+			return context
+		}
+	],
     find: [],
     get: [],
     create: [],

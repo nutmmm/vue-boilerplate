@@ -1,53 +1,70 @@
-import client from "./client"
+import client from "./client";
 
-const channelSvc = client.service("channels")
-const messagesSvc = client.service("messages")
-const usersSvc = client.service("users")
+const channelSvc = client.service("channels");
+const messagesSvc = client.service("messages");
+const usersSvc = client.service("users");
 
 const service = {
-  getChannels() {
-    return channelSvc.find()
-  },
+	createChannel(name, myselfId){
+		return channelSvc.create({ name: name, admins: [myselfId] });
+	},
 
-  connectToChannel(myselfId, channelId, currentChannelId) {
-    const promises = []
+	getChannels() {
+		return channelSvc.find({
+			query: {
 
-    // Disconnect myself from currentChannel
-    if (currentChannelId) {
-      promises.push(
-        channelSvc.patch(currentChannelId, {
-          $pull: { users: myselfId }
-        })
-      )
-    }
+			}
+		});
+	},
 
-    // Add myself to channel
-    promises.push(
-      channelSvc.patch(channelId, {
-        $push: { users: myselfId }
-      })
-    )
+	connectToChannel(myselfId, channelId, currentChannelId) {
+		const promises = [];
 
-    return Promise.all(promises)
-},
+		// Disconnect myself from currentChannel
+		if (currentChannelId) {
+			promises.push(
+				channelSvc.patch(currentChannelId, {
+					$pull: { users: myselfId }
+				})
+			);
+		}
 
-  getMessages(channelId) {
-    return messagesSvc.find({
-      query: {
-        channel: channelId
-      }
-  })
-  },
+		// Add myself to channel
+		promises.push(
+			channelSvc.patch(channelId, {
+				$push: { users: myselfId }
+			})
+		);
 
-sendMessage(channel, user, text) {
-	return client.service("messages").create({ channel, user, text }).catch(err => {
-		console.log()
-	})
-},
+		return Promise.all(promises);
+	},
+
+	getMessages(channelId) {
+		return messagesSvc.find({
+			query: {
+				channel: channelId
+			}
+		})
+	},
+
+	sendMessage(channel, user, text) {
+		return client.service("messages").create({ channel, user, text }).catch(err => {
+			console.log();
+		});
+	},
 
 	getMsgSvc(){
 		return messagesSvc;
+	},
+
+	getUser( userId ){
+		console.log(userId)
+		return channelSvc.find({
+			query: {
+				_id: userId
+			}
+		});
 	}
 }
 
-export default service
+export default service;

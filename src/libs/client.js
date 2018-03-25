@@ -1,19 +1,19 @@
-const io = require("socket.io-client")
-import { authentication } from "@feathersjs/client"
-const feathers = require('@feathersjs/feathers');
-import conf from "./conf"
-const socketio = require('@feathersjs/socketio-client');
+import io from "socket.io-client";
+import feathers from "@feathersjs/feathers";
+import socketio from "@feathersjs/socketio-client";
+import auth from "@feathersjs/authentication-client";
+
+import conf from "./conf";
+
+const client = feathers();
 
 const socket = io(`http://${conf.host}:${conf.port}`, {
-  transports: ['websocket'],
-  forceNew: true
-})
-const client = feathers()
+	transports: ["websocket"],
+	forceNew: true
+});
 
-//client.configure(hooks)
-client.configure(authentication({ storage: localStorage }))
+client.configure(auth({ storage: localStorage }));
 // Create the Feathers application with a `socketio` connection
-//client.configure(client.socketio(socket))
-client.configure(socketio(socket))
+client.configure(socketio(socket));
 
-export default client
+export default client;

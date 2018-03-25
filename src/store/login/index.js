@@ -1,27 +1,39 @@
 export const state = {
-  user: {},
-  loggedIn: false
+	// This should contain variables that you would like to preserve
+	user: {},
+	loggedIn: false
+
 }
 
 export const mutations = {
-  setUser(state, user) {
-    state.user = user
-  },
-  setLoggedIn(state, loggedIn) {
-    state.loggedIn = loggedIn
-  }
+	// This should contain methods for modifying the state section but should not be called directly
+	setUser(state, user) {
+		state.user = user
+	},
+	setLoggedIn(state, loggedIn) {
+		state.loggedIn = loggedIn
+	}
 }
 
-// Getters are not really necessary for a simple case like this one, but
-// in general is a good practice, since they add another layer of abstraction
-// that can be used to get computed or transformed version of the state
+export const actions = {
+	// This should contain methods that do not modify the state directly
+	// They may however modify the stat by calling a method in the mutations
+	// This may be done via: commit("mutation_name", data)
+	setUser: (state, user) => {
+		state.commit("setUser", user)
+	},
+	setLoggedIn: (state, loggedIn) => state.commit("setLoggedIn", loggedIn)
+}
+
 export const getters = {
-  user: state => state.user,
-  loggedIn: state => state.loggedIn
+	// This should contain methods for retrieving the data from the state
+	user: state => state.user,
+	loggedIn: state => state.loggedIn
 }
 
 export default {
   state,
   mutations,
+  actions,
   getters
 }
