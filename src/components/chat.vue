@@ -1,5 +1,5 @@
 <template>
-	<div class="inputContainer">
+	<div class="inputContainer" @keyup.enter="send">
 		<textarea v-model="message" class="messageInput"></textarea>
 		<div @click="send" class="messageButton">Send</div>
 	</div>

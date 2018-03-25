@@ -49,7 +49,7 @@ const service = {
 
 	sendMessage(channel, user, text) {
 		return client.service("messages").create({ channel, user, text }).catch(err => {
-			console.log();
+			console.error(err);
 		});
 	},
 
@@ -58,7 +58,6 @@ const service = {
 	},
 
 	getUser( userId ){
-		console.log(userId)
 		return channelSvc.find({
 			query: {
 				_id: userId

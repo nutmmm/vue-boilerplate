@@ -35,6 +35,8 @@ module.exports = {
 					for (let userArr of context.result.data){
 						userArr = await loadData(userArr, context);
 					}
+
+					context.result.data.reverse();
 				}
 				else{
 					context.result = await loadData(context.result, context);

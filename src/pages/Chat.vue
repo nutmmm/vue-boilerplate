@@ -8,9 +8,10 @@
 			<chatHistory :messages="messages"></chatHistory>
 			<chat @sendMessage="sendMessage"></chat>
 		</div>
-		<div class="connectedUsers">
+		<!-- dont have time for this right now so removing -->
+		<!--<div class="connectedUsers">
         	<users :users="users"></users>
-		</div>
+		</div>-->
 		<newChannel :class="{hidden: !newChannelDialog}" @cancelDialog="onCancelDialog" @confirmDialog="onConfirmDialog"></newChannel>
 	</div>
 </template>
@@ -136,7 +137,7 @@
 
 	.right{
 		height: 100%;
-    	width: calc(90% - 120px);
+    	width: calc(100% - 120px);
 	}
 
 	.connectedUsers{
@@ -148,7 +149,7 @@
 
 	.logoutButton{
 		position: fixed;
-		right: calc(30px + 10%);
+		right: 30px;
 		top: 30px;
 		border: 1px solid black;
 		border-radius: 100px;

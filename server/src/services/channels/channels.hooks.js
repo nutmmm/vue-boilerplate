@@ -19,7 +19,7 @@ module.exports = {
   after: {
     all: [],
     find: [
-		async function(context) {
+		/*async function(context) {
 			if(Array.isArray(context.result.data)){
 				for (let userArr of context.result.data){
 					let newList = [];
@@ -31,7 +31,7 @@ module.exports = {
 			}
 			console.log(context.result.data[0].users)
 			return context
-		}
+		}*/
 	],
     get: [],
     create: [],

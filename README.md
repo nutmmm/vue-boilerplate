@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+### A working example of this can be found at http://104.237.139.237
+
 ## Build Setup
 
 ``` bash

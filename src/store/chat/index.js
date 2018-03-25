@@ -41,7 +41,6 @@ export const actions = {
 	getChannels({ commit, state }) {
 		service.getChannels().then(res => {
 			commit("setChannels", res.data)
-			console.log("HERE", res.data[0].users)
 		}).catch(err => {
 			console.error(err);
 		});
