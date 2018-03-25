@@ -11,7 +11,7 @@ function parseDate(date){
 			+ "]";
 }
 
-async function loadData(data, context, find = false){
+async function loadData(data, context){
 	data.user = await context.app.service('users').get(data.user);
 	data.date = parseDate(data.createdAt);
 	return data;
@@ -33,7 +33,7 @@ module.exports = {
 			async function(context) {
 				if(Array.isArray(context.result.data)){
 					for (let userArr of context.result.data){
-						userArr = await loadData(userArr, context, true);
+						userArr = await loadData(userArr, context);
 					}
 				}
 				else{

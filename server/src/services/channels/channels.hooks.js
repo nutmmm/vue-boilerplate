@@ -1,5 +1,10 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
+async function loadUserData(data, context){
+	data = (await context.app.service('users').get(data)).nick;
+	return data;
+}
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -12,15 +17,22 @@ module.exports = {
   },
 
   after: {
-    all: [
+    all: [],
+    find: [
 		async function(context) {
-			context.params.user = (await context.app.service('users').get(context.params.user)).nick;
-				console.log(context.params.user)
-
+			if(Array.isArray(context.result.data)){
+				for (let userArr of context.result.data){
+					let newList = [];
+					for (let userIdArr of userArr.users){
+						newList.push(await loadUserData(userIdArr, context));
+					}
+					userArr.users = newList;
+				}
+			}
+			console.log(context.result.data[0].users)
 			return context
 		}
 	],
-    find: [],
     get: [],
     create: [],
     update: [],

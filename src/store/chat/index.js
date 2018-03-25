@@ -24,11 +24,6 @@ export const mutations = {
 	setChannels(state, channels) {
 		state.channels = channels
 	},
-
-	addChannel(state, channel){
-		state.channels.push(channel);
-	},
-
 	setCurrentChannel(state, channel) {
 		state.currentChannelId = channel._id
 	},
@@ -46,6 +41,7 @@ export const actions = {
 	getChannels({ commit, state }) {
 		service.getChannels().then(res => {
 			commit("setChannels", res.data)
+			console.log("HERE", res.data[0].users)
 		}).catch(err => {
 			console.error(err);
 		});
@@ -54,10 +50,6 @@ export const actions = {
 
 	createChannel({ commit, state }, { name, userId }){
 		return service.createChannel(name, userId);
-	},
-
-	addChannel({commit, state}, { channel }){
-		commit("addChannel", channel)
 	},
 
 	updateChannel({ commit, state }, channel) {
