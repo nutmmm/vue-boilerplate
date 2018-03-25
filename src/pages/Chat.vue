@@ -3,7 +3,6 @@
 		<div class="logoutButton" @click="Logout()">
 			Logout
 		</div>
-		<!--<channels :channels="channels" :current="currentChannel" @selectChannel="onSelectChannel"></channels>-->
 		<channels :channels="channels" @selectChannel="onSelectChannel" @createChannel="onCreateChannel"></channels>
 		<div class="right">
 			<chatHistory :messages="messages"></chatHistory>
@@ -42,11 +41,17 @@
 			// Setup events
 			client.service("messages").on("created", message => {
 				this.addMessage(message);
-			})
+			});
 
 			client.service("channels").on("patched", channel => {
+				//updateChannel does no server calls only updates the array ref
 				//this.updateChannel(channel);
-			})
+				//	this.getChannels();
+			});
+
+			client.service("channels").on("created", channel => {
+				this.getChannels();
+			});
 		},
 
 		methods: {
@@ -58,8 +63,7 @@
 				'getChannels',
 				'selectChannel',
 				'updateChannel',
-				'createChannel',
-				'addChannel'
+				'createChannel'
 			]),
 
 			onSelectChannel(channel) {
@@ -75,9 +79,7 @@
 			},
 
 			onConfirmDialog(channelName){
-				this.createChannel({ name: channelName, userId: this.user._id }).then(res => {
-					this.addChannel({ channel: res });
-				}).catch(err => {
+				this.createChannel({ name: channelName, userId: this.user._id }).catch(err => {
 					console.error(err);
 				});
 			},
