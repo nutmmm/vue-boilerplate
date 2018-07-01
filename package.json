@@ -1,6 +1,6 @@
 {
 	"name": "vue-boilerplate",
-	"description": "A vue boilerplate using feathers.js and node.js for the realtime back-end, and vue with vue-router, vuex, and vue webpack for the front-end",
+	"description": "A vue boilerplate using feathers.js and node.js for the realtime back-end, and vue for the front-end",
 	"version": "1.0.0",
 	"author": "nutmmm <nutmmm@organicdesign.co.nz>",
 	"license": "GPL",
